@@ -1,6 +1,7 @@
 import { Logger, LoggerOptions } from 'winston';
 import { ModuleMetadata } from '@nestjs/common/interfaces';
 import { Type } from '@nestjs/common';
+import { AsyncLocalStorage } from 'node:async_hooks';
 
 export type WinstonModuleOptions = LoggerOptions & {
   /**
@@ -8,6 +9,11 @@ export type WinstonModuleOptions = LoggerOptions & {
    * This takes precedence on any other options provided
    */
   instance?: Logger;
+  /**
+   * Optional AsyncLocalStorage instance to use
+   * This is used to store the current request id
+   */
+  als?: AsyncLocalStorage<any>;
 };
 
 export type NestLikeConsoleFormatOptions = {
