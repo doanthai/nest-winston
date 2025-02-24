@@ -5,14 +5,21 @@ import { AsyncLocalStorage } from 'node:async_hooks';
 
 export class WinstonLogger implements LoggerService {
   private context?: string;
+  private als?: AsyncLocalStorage<any>;
 
   constructor(
     private readonly logger: Logger,
-    private readonly als?: AsyncLocalStorage<any>,
-  ) {}
+    als?: AsyncLocalStorage<any>,
+  ) {
+    this.als = als;
+  }
 
   public setContext(context: string) {
     this.context = context;
+  }
+
+  public setAsyncLocalStorage(als: AsyncLocalStorage<any>) {
+    this.als = als;
   }
 
   public log(message: any, context?: string): any {
